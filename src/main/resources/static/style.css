@@ -1,0 +1,575 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+    /* Ultra-Modern Dark Palette */
+    --primary: #6366f1;
+    /* Electric Indigo */
+    --primary-glow: rgba(99, 102, 241, 0.5);
+    --secondary: #06b6d4;
+    /* Neon Cyan */
+    --secondary-glow: rgba(6, 182, 212, 0.5);
+    --accent: #f472b6;
+    /* Hot Pink */
+    --accent-glow: rgba(244, 114, 182, 0.5);
+
+    --bg-dark: #030712;
+    /* Deep Slate 950 */
+    --bg-glass: rgba(17, 24, 39, 0.7);
+    --card-glass: rgba(31, 41, 55, 0.4);
+
+    --text-primary: #f9fafb;
+    --text-secondary: #9ca3af;
+
+    --border-glass: rgba(255, 255, 255, 0.08);
+    --border-glow: linear-gradient(135deg, rgba(99, 102, 241, 0.3), rgba(6, 182, 212, 0.3));
+
+    --radius-lg: 20px;
+    --radius-md: 12px;
+    --transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Outfit', sans-serif;
+}
+
+/* Mesh Gradient Background */
+body {
+    background-color: var(--bg-dark);
+    background-image:
+        radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
+        radial-gradient(at 100% 0%, rgba(244, 114, 182, 0.15) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(6, 182, 212, 0.15) 0px, transparent 50%),
+        radial-gradient(at 0% 100%, rgba(99, 102, 241, 0.1) 0px, transparent 50%);
+    background-attachment: fixed;
+    color: var(--text-primary);
+    height: 100vh;
+    /* Fix body height to viewport */
+    display: flex;
+    overflow: hidden;
+    /* Prevent body scroll, let children scroll */
+}
+
+/* Animation for Mesh Background */
+@keyframes mesh {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* View Specific Theming */
+body.view-dashboard {
+    background-image:
+        linear-gradient(rgba(3, 7, 18, 0.8), rgba(3, 7, 18, 0.9)),
+        url('https://images.unsplash.com/photo-1626224583764-84786c71971e?q=80&w=2070&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.badminton-hero {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(244, 114, 182, 0.2));
+    border: 1px solid var(--border-glass);
+    border-radius: var(--radius-lg);
+    padding: 3rem;
+    margin-bottom: 3rem;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    display: none;
+    /* Hidden by default, shown via app.js injection or layout */
+}
+
+/* Force display when injected */
+.main-content .badminton-hero {
+    display: block;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.hero-content h2 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    background: linear-gradient(to right, #fff, var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1rem;
+}
+
+.hero-content p {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    max-width: 600px;
+}
+
+.badminton-hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, var(--primary-glow) 0%, transparent 70%);
+    opacity: 0.5;
+    z-index: 1;
+}
+
+.hero-image {
+    position: absolute;
+    right: 2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 180px;
+    width: auto;
+    filter: drop-shadow(0 0 20px rgba(244, 114, 182, 0.4));
+    z-index: 10;
+    opacity: 0.9;
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(-50%) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(-55%) rotate(2deg);
+    }
+
+    100% {
+        transform: translateY(-50%) rotate(0deg);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Login Page UI */
+.login-container {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.login-card {
+    width: 90%;
+    max-width: 420px;
+    padding: 3.5rem;
+    background: var(--bg-glass);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    box-shadow: 0 0 20px var(--primary-glow), 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    z-index: 10;
+}
+
+/* Input Fields */
+input {
+    width: 100%;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-glass);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    font-size: 1rem;
+    transition: var(--transition);
+    outline: none;
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 20;
+}
+
+input:focus {
+    border-color: var(--primary);
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 0 2px var(--primary-glow);
+}
+
+/* Fix for Select Options (Dropdown Visibility) */
+select option {
+    background-color: var(--bg-dark);
+    /* Ensure options have dark background */
+    color: var(--text-primary);
+    /* Ensure text is light */
+}
+
+::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.7;
+}
+
+/* Sidebar Ultra-Modern */
+.sidebar {
+    width: 300px;
+    background: rgba(3, 7, 18, 0.8);
+    backdrop-filter: blur(24px);
+    border-right: 1px solid var(--border-glass);
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    padding: 2rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.logo {
+    font-size: 1.75rem;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    background: linear-gradient(to right, #fff, var(--secondary), var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+.logo i {
+    color: var(--primary);
+    filter: drop-shadow(0 0 12px var(--primary-glow));
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.nav-item {
+    padding: 1rem 1.25rem;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    color: var(--text-secondary);
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    font-weight: 600;
+}
+
+.nav-item:hover {
+    background: rgba(255, 255, 255, 0.03);
+    color: #fff;
+    transform: translateX(8px);
+}
+
+.nav-item.active {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: #fff;
+    box-shadow: 0 8px 20px -6px var(--primary-glow);
+}
+
+/* Main Layout */
+.main-content {
+    flex: 1;
+    padding: 4rem 5rem;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+/* Grid & Layout Utilities */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 4rem;
+}
+
+.plans-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4rem;
+}
+
+.header {
+    margin-bottom: 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+}
+
+/* Cards with Glowing Borders */
+.card {
+    background: var(--card-glass);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border-glass);
+    border-radius: var(--radius-lg);
+    padding: 3rem;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: translateY(-8px) scale(1.02);
+    border-color: rgba(99, 102, 241, 0.4);
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.6);
+}
+
+.card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.05));
+    opacity: 0;
+    transition: var(--transition);
+    pointer-events: none;
+}
+
+.card:hover::after {
+    opacity: 1;
+}
+
+/* Buttons with Pulse Effect */
+.btn {
+    padding: 1rem 2rem;
+    border-radius: 14px;
+    font-weight: 700;
+    font-size: 0.9375rem;
+    cursor: pointer;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    border: none;
+    outline: none;
+    position: relative;
+    z-index: 20;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: #fff;
+    box-shadow: 0 10px 20px -5px var(--primary-glow);
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    background: linear-gradient(135deg, #4f46e5, #ec4899);
+    box-shadow: 0 15px 30px -8px var(--accent-glow);
+}
+
+.btn-outline {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-glass);
+    color: var(--text-primary);
+}
+
+.btn-outline:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Modern Tables */
+.table-container {
+    background: var(--bg-glass);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--border-glass);
+    border-radius: 24px;
+    overflow: hidden;
+    border-radius: 24px;
+    overflow: hidden;
+    margin-top: 4rem;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    padding: 1.5rem 2rem;
+    text-align: left;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--border-glass);
+}
+
+td {
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid var(--border-glass);
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+tr:hover td {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+/* Neomorphic Plan Cards */
+.plan-card {
+    text-align: center;
+}
+
+.plan-name {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--accent);
+}
+
+.plan-price {
+    font-size: 3.5rem;
+    font-weight: 900;
+    margin: 2rem 0;
+    color: #fff;
+}
+
+/* Status Badges 2.0 */
+.status {
+    padding: 0.5rem 1.25rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+}
+
+.status-active {
+    background: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.15);
+}
+
+.status-pending {
+    background: rgba(245, 158, 11, 0.1);
+    color: #fbbf24;
+    border: 1px solid rgba(245, 158, 11, 0.2);
+    box-shadow: 0 0 15px rgba(245, 158, 11, 0.1);
+}
+
+.status-inactive {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    box-shadow: 0 0 20px rgba(239, 68, 68, 0.15);
+}
+
+/* Scrollbar Modern */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+    background: #1f2937;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #374151;
+}
+
+/* Modals Ultra-Modern */
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(3, 7, 18, 0.6);
+    backdrop-filter: blur(12px);
+    z-index: 10000;
+    display: none;
+    place-items: center;
+    padding: 2rem;
+}
+
+.modal-content {
+    background: var(--bg-glass);
+    backdrop-filter: blur(32px);
+    border: 1px solid var(--border-glass);
+    border-radius: 32px;
+    width: 100%;
+    max-width: 500px;
+    padding: 4rem;
+    position: relative;
+    box-shadow: 0 50px 100px -20px rgba(0, 0, 0, 0.7);
+    animation: modalIn 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+@keyframes modalIn {
+    from {
+        transform: translateY(30px) scale(0.95);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
+.modal-header {
+    margin-bottom: 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h2 {
+    font-size: 1.75rem;
+    font-weight: 800;
+}
+
+.modal-header button {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 2rem;
+    cursor: pointer;
+    line-height: 1;
+    transition: var(--transition);
+}
+
+.modal-header button:hover {
+    color: #fff;
+    transform: rotate(90deg);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 1024px) {
+    .main-content {
+        padding: 2rem;
+    }
+
+    .sidebar {
+        display: none;
+        /* In a real app we'd add a toggle */
+    }
+}
